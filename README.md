@@ -2,6 +2,7 @@
 
 ## Controls
 If you have not customized the configuration in settings
+
 p1:
 1. left = arrow left
 2. right = arrow right
