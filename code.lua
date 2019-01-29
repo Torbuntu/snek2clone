@@ -43,6 +43,9 @@ function draw()
         DrawSprite(1, v.x * 8, v.y * 8, false, false, null, 0)
     end
     DrawSprite(2, food.x * 8, food.y * 8, false, false, null, 0)
+
+    DrawText("p1 score: "..score, 1, 20, DrawMode.Sprite, "large", 3)
+    DrawText("p2 score: "..score2, 1, 30, DrawMode.Sprite, "large", 3)
 end
 
 function newGame()
