@@ -21,8 +21,9 @@ function gotFood2()
 end
 
 function setFood()
-    food.x = math.random(1, 29)
-    food.y = math.random(1, 19)
+    food.x = math.random(0, 28)
+    food.y = math.random(0, 18)
+    food.id = math.random(2, 4)
     for i, v in pairs(snake) do
         if v.x == food.x and v.y == food.y then
             setFood()
@@ -36,16 +37,16 @@ function setFood()
 end
 
 function draw()
+    DrawText("p1 score: "..score, 1, 1, DrawMode.Sprite, "large", 3)
+    DrawText("p2 score: "..score2, 1, 140, DrawMode.Sprite, "large", 3)
     for i, v in pairs(snake) do
         DrawSprite(0, v.x * 8, v.y * 8, false, false, null, 0)
     end
     for i, v in pairs(snake2) do
         DrawSprite(1, v.x * 8, v.y * 8, false, false, null, 0)
     end
-    DrawSprite(2, food.x * 8, food.y * 8, false, false, null, 0)
+    DrawSprite(food.id, food.x * 8, food.y * 8, false, false, null, 0)
 
-    DrawText("p1 score: "..score, 1, 20, DrawMode.Sprite, "large", 3)
-    DrawText("p2 score: "..score2, 1, 30, DrawMode.Sprite, "large", 3)
 end
 
 function newGame()
@@ -62,7 +63,7 @@ function newGame()
         {x = 16, y = 9}, --neck
         {x = 16, y = 8} --head
     }
-    food = {x = 0, y = 0}
+    food = {x = math.random(0, 28), y = math.random(0, 18), id = 3}
     dir = dirs[0]
     dir2 = dirs[0]
 end
@@ -71,8 +72,7 @@ function Init()
     first = true
     gameOver = true
     BackgroundColor(0)
-    newGame()
-
+    PlaySong({0}, false)
 end
 
 function Update(timeDelta)
@@ -91,8 +91,10 @@ function Draw()
             DrawText("Game over, ", 1, 1, DrawMode.Sprite, "large", 3)
             DrawText(loser.." ate themselves!", 1, 10, DrawMode.Sprite, "large", 3)
             DrawText("Final score, p1: "..score.." , p2: "..score2, 1, 20, DrawMode.Sprite, "large", 3)
+        else
+            DrawText("Snek 2 player!", 1, 20, DrawMode.Sprite, "large", 3)
         end
-        DrawText("Press `A` to play.", 1, 30, DrawMode.Sprite, "large", 3)
+        DrawText("Press button to play.", 1, 30, DrawMode.Sprite, "large", 3)
     else
         t = t + 1
         head = snake[#snake]
@@ -119,17 +121,19 @@ function Draw()
                 end
             end
 
-            table.insert(snake, #snake + 1, {x = (head.x + dir.x)%30, y = (head.y + dir.y)%20})
+            table.insert(snake, #snake + 1, {x = (head.x + dir.x)%29, y = (head.y + dir.y)%19})
             if not gotFood() then
                 table.remove(snake, 1)
             else
+                PlaySound(10, 0)
                 setFood()
                 score = score + 1
             end
-            table.insert(snake2, #snake2 + 1, {x = (head2.x + dir2.x)%30, y = (head2.y + dir2.y)%20})
+            table.insert(snake2, #snake2 + 1, {x = (head2.x + dir2.x)%29, y = (head2.y + dir2.y)%19})
             if not gotFood2() then
                 table.remove(snake2, 1)
             else
+                PlaySound(11, 0)
                 setFood()
                 score2 = score2 + 1
             end
