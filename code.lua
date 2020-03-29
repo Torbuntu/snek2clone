@@ -72,7 +72,7 @@ function Init()
     first = true
     gameOver = true
     BackgroundColor(0)
-    PlaySong({0}, false)
+    PlaySong(0, false)
 end
 
 function Update(timeDelta)
