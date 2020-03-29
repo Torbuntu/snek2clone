@@ -22,7 +22,7 @@ end
 
 function setFood()
     food.x = math.random(0, 28)
-    food.y = math.random(0, 18)
+    food.y = math.random(1, 17)
     food.id = math.random(2, 4)
     for i, v in pairs(snake) do
         if v.x == food.x and v.y == food.y then
